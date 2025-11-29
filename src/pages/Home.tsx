@@ -89,7 +89,7 @@ const Home = () => {
               variants={itemVariants}
               className="text-lg sm:text-xl lg:text-2xl text-gray-700 dark:text-gray-200 mb-8 max-w-3xl leading-relaxed font-light tracking-wide"
             >
-              I design reliable backend systems and streaming pipelines that people and businesses trust. I combine strong engineering fundamentals with pragmatic AI to deliver clear, measurable impact — fast, maintainable, and secure.
+              I build dependable backend systems and streaming pipelines that solve real problems. I balance engineering rigor with human-centered thinking — prioritizing observability, fast recovery, and clear APIs so teams and users can rely on the results.
             </motion.p>
 
             {/* CTA Buttons */}
