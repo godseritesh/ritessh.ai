@@ -188,94 +188,126 @@ const Journey: React.FC = () => {
         </motion.div>
       </motion.div>
 
-      {/* Journey narrative sections (user-provided structured timeline) */}
+      {/* Cinematic alternating timeline */}
       <div className="relative bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-gray-900 py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto space-y-12">
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+        <div className="max-w-6xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12 text-center">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white">🎬 THE JOURNEY — RITESH GODSE</h2>
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">A cinematic retelling — click or scroll each scene to reveal more.</p>
           </motion.div>
 
-          <section>
-            <motion.h3 initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} className="text-xl font-semibold text-gray-800 dark:text-gray-200">🌅 2003 — A Beginning</motion.h3>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="mt-3 text-gray-700 dark:text-gray-300 leading-relaxed">
-              A quiet morning in 2003. A boy is born in Satara — curious, observant, and already trying to pull the world closer with tiny hands that would one day build systems used by thousands.
-            </motion.p>
-          </section>
+          <div className="relative">
+            {/* vertical timeline line */}
+            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-gradient-to-b from-blue-300 to-transparent opacity-30" />
 
-          <section>
-            <motion.h3 initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} className="text-xl font-semibold text-gray-800 dark:text-gray-200">🏫 2009 – 2012 — The First Steps Into School Life</motion.h3>
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="mt-3 space-y-3 text-gray-700 dark:text-gray-300">
-              <p>Primary school was a burst of discovery. Days filled with school activities, laughter, friends, and harmless mischiefs. Learned swimming, picked up new hobbies, and found the early spark of leadership as the Head Boy in 4th Standard. Small steps, big hints of the determination that would follow.</p>
-            </motion.div>
-          </section>
+            <div className="space-y-20">
+              {scenes.map((s, idx) => {
+                const isLeft = idx % 2 === 0;
+                return (
+                  <div key={s.id} className="relative">
+                    <div className="flex flex-col md:flex-row items-start md:items-center">
+                      {/* Left column */}
+                      <div className={isLeft ? 'w-full md:w-1/2 pr-4 flex justify-end' : 'w-full md:w-1/2 pr-4 hidden md:flex'}>
+                        {isLeft && (
+                          <motion.article
+                            initial={{ opacity: 0, x: -40 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: idx * 0.06 }}
+                            className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg hover:scale-[1.02] transform-gpu transition-transform"
+                            aria-labelledby={`scene-${s.id}-title`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="text-2xl">{s.emoji}</div>
+                              <div>
+                                <p className="text-xs text-gray-500">{s.years}</p>
+                                <h3 id={`scene-${s.id}-title`} className="text-lg font-bold text-gray-900 dark:text-white">{s.heading}</h3>
+                              </div>
+                            </div>
+                            <div className="mt-3 text-gray-700 dark:text-gray-300 space-y-2 text-sm">
+                              {s.paragraphs.map((p, i) => (
+                                <p key={i}>{p}</p>
+                              ))}
+                            </div>
+                          </motion.article>
+                        )}
+                      </div>
 
-          <section>
-            <motion.h3 initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} className="text-xl font-semibold text-gray-800 dark:text-gray-200">🎒 2013 – 2019 — Secondary School: The First Leadership Arc</motion.h3>
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="mt-3 space-y-3 text-gray-700 dark:text-gray-300">
-              <p>Secondary school became a stage for growth. From gathering performances to organizing Sun Fair, from Scout & Guide’s Khari Kamai to camping at Kaas Plateau, every experience added grit. Led with confidence as Red House Captain (2016–17), tried horse riding, and learned structure, discipline & teamwork. Closed this chapter with excellence — SSC Board: 94.40%.</p>
-            </motion.div>
-          </section>
+                      {/* Center marker */}
+                      <div className="w-full md:w-12 flex justify-center">
+                        <div className="relative flex items-center justify-center">
+                          <div className="w-4 h-4 rounded-full bg-blue-500 ring-8 ring-white dark:ring-gray-900 shadow-md" />
+                          <div className="absolute -top-6 text-xs text-gray-500 hidden md:block">{s.years}</div>
+                        </div>
+                      </div>
 
-          <section>
-            <motion.h3 initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} className="text-xl font-semibold text-gray-800 dark:text-gray-200">📘 2019 – 2021 — Junior College: A World Paused, A Mind Unpaused</motion.h3>
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="mt-3 space-y-3 text-gray-700 dark:text-gray-300">
-              <p>The world shut down, but curiosity didn’t. During lockdown, explored AI courses, learned Python, and took first steps toward the world of machine intelligence. Balanced preparation for competitive exams, tried freelancing, and finished with HSC Board: 89.67%. Then came the breakthrough: MHT-CET 96 percentile. A gateway opened.</p>
-            </motion.div>
-          </section>
+                      {/* Right column */}
+                      <div className={isLeft ? 'w-full md:w-1/2 pl-4 hidden md:flex' : 'w-full md:w-1/2 pl-4 flex justify-start'}>
+                        {!isLeft && (
+                          <motion.article
+                            initial={{ opacity: 0, x: 40 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: idx * 0.06 }}
+                            className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl max-w-lg hover:scale-[1.02] transform-gpu transition-transform"
+                            aria-labelledby={`scene-${s.id}-title`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="text-2xl">{s.emoji}</div>
+                              <div>
+                                <p className="text-xs text-gray-500">{s.years}</p>
+                                <h3 id={`scene-${s.id}-title`} className="text-lg font-bold text-gray-900 dark:text-white">{s.heading}</h3>
+                              </div>
+                            </div>
+                            <div className="mt-3 text-gray-700 dark:text-gray-300 space-y-2 text-sm">
+                              {s.paragraphs.map((p, i) => (
+                                <p key={i}>{p}</p>
+                              ))}
+                            </div>
+                          </motion.article>
+                        )}
+                      </div>
 
-          <section>
-            <motion.h3 initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} className="text-xl font-semibold text-gray-800 dark:text-gray-200">🎖️ 2021 — The Cadet’s Test: SSB TES-46</motion.h3>
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="mt-3 text-gray-700 dark:text-gray-300">
-              <p>One of the toughest selections: SSB TES-46, Bangalore. Among top 10 out of 400 cadets — a moment of discipline, resilience, and exposure to India's finest selection standards. A “conference out”, but a life lesson in character and grit.</p>
-            </motion.div>
-          </section>
+                      {/* Mobile single-column card (appears below center marker) */}
+                    </div>
 
-          <section>
-            <motion.h3 initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} className="text-xl font-semibold text-gray-800 dark:text-gray-200">🏫 2021 – 2025 — Engineering at VIIT: Discovery, Leadership & Innovation</motion.h3>
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="mt-4 space-y-4 text-gray-700 dark:text-gray-300">
-              <p className="font-semibold">1st Year — Exploration</p>
-              <p>Explored campus clubs, NSS activities, and early internships. Qualified for Google Hash Code 2022, engaging in team-based algorithmic challenges.</p>
+                    <div className="md:hidden mt-6">
+                      <motion.article
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: idx * 0.04 }}
+                        className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-lg"
+                        aria-labelledby={`scene-${s.id}-title-mobile`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="text-xl">{s.emoji}</div>
+                          <div>
+                            <p className="text-xs text-gray-500">{s.years}</p>
+                            <h4 id={`scene-${s.id}-title-mobile`} className="text-base font-bold text-gray-900 dark:text-white">{s.heading}</h4>
+                          </div>
+                        </div>
+                        <div className="mt-3 text-gray-700 dark:text-gray-300 text-sm space-y-2">
+                          {s.paragraphs.map((p, i) => (
+                            <p key={i}>{p}</p>
+                          ))}
+                        </div>
+                      </motion.article>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-              <p className="font-semibold">2nd Year — First Industry Breakthrough</p>
-              <p>Joined HCL Technologies (Aug–Nov 2022) as an R&D Intern — worked in NLP, Computer Vision, and Data Analytics. Participated in techno-social initiatives and 7-day residential camp at Jamgaon Village. Contributed to Gandharva 2023 decorations.</p>
-
-              <p className="font-semibold">3rd Year — Leadership & Impact</p>
-              <p>Became Vice President, NSS VIIT (2023–24). Built and deployed a polling/awareness web app in 48 hours, reaching 3500+ users and increasing blood donation participation by 25%. Organized an intensive leadership camp, handled committees, resolved conflicts, and coordinated events. Participated in Smart India Hackathon (SIH). Published an IEEE research paper at NIT Rourkela on Next Word Prediction using NLP.</p>
-
-              <p className="font-semibold">4th Year — Engineering with Purpose</p>
-              <p>Final year — built OptiHeart, a retinal-based heart attack prediction system. Graduated with CGPA 8.98.</p>
-            </motion.div>
-          </section>
-
-          <section>
-            <motion.h3 initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} className="text-xl font-semibold text-gray-800 dark:text-gray-200">💼 2025 — Entering the Industry</motion.h3>
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="mt-3 space-y-3 text-gray-700 dark:text-gray-300">
-              <p className="font-semibold">Jan – Jun 2025</p>
-              <p>Software Developer (Contract) at JPMorgan Chase & Co. Contributed to cloud migration pipelines, API integrations, and scalable data architecture.</p>
-
-              <p className="font-semibold">Jun 2025 – Present</p>
-              <p>Graduate Trainee Engineer, PayU Payments — working on high-performance, real-world FinTech systems. Building scalable services, settlement pipelines, automation, and AI integrations.</p>
-            </motion.div>
-          </section>
-
-          <section>
-            <motion.h3 initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} className="text-xl font-semibold text-gray-800 dark:text-gray-200">🌄 Where the Journey Stands Today</motion.h3>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="mt-3 text-gray-700 dark:text-gray-300 leading-relaxed">
-              From a curious boy in 2003 to a FinTech engineer building systems for thousands — this journey is a continuous evolution of learning, leadership, and impact. And it’s only the beginning.
-            </motion.p>
-          </section>
-
-          {/* Ending CTA preserved */}
-          <div className="pt-6 text-center">
-            <Link to="/contact">
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-md shadow-md"
-              >
-                Let's Connect
-                <ArrowRight size={18} />
-              </motion.button>
-            </Link>
+            {/* CTA preserved below timeline */}
+            <div className="mt-16 text-center">
+              <Link to="/contact">
+                <motion.button whileHover={{ scale: 1.03 }} className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-md shadow-md">
+                  Let's Connect
+                  <ArrowRight size={18} />
+                </motion.button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
