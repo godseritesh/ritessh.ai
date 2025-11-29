@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { PageTransition } from '../components/Animations';
 // ScrollRevealWrapper removed from this page (Impact section removed)
 import { getResume } from '../data/resumeLoader';
+import { Suspense, lazy } from 'react';
+
+const ThreeDemo = lazy(() => import('../components/ThreeDemo'));
 
 const Home = () => {
   const resume = getResume();
@@ -123,6 +126,11 @@ const Home = () => {
                 </motion.button>
               </Link>
             </motion.div>
+
+            {/* 3D demo (lazy) */}
+            <Suspense>
+              <ThreeDemo />
+            </Suspense>
 
             {/* Social Links */}
             <motion.div variants={itemVariants} className="flex gap-4 pt-8 border-t border-gray-300 dark:border-gray-600">

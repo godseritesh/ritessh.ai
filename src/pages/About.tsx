@@ -194,6 +194,7 @@ const About = () => {
             <img
               src={`${viteBase}photo.png`}
               alt="Profile"
+              loading="lazy"
               className="w-36 h-36 rounded-full mx-auto border-2 border-gray-200 dark:border-gray-700 shadow-md object-cover"
               style={{ backgroundColor: '#ffeb3b' }}
             />
