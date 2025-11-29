@@ -9,6 +9,9 @@ const About = () => {
     return acc;
   }, {});
 
+  // Vite provides BASE_URL at build time; use a safe fallback for TS env typings
+  const viteBase = (import.meta as any)?.env?.BASE_URL ?? '/';
+
   return (
     <PageTransition>
       <div className="min-h-screen pt-20 pb-20 bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900 dark:to-primary-800">
@@ -189,7 +192,7 @@ const About = () => {
           {/* Small profile picture */}
           <div className="mt-12 text-center">
             <img
-              src="/photo.png"
+              src={`${viteBase}photo.png`}
               alt="Profile"
               className="w-36 h-36 rounded-full mx-auto border-2 border-gray-200 dark:border-gray-700 shadow-md object-cover"
               style={{ backgroundColor: '#ffeb3b' }}
