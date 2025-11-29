@@ -4,7 +4,9 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/',
+  // Base path for production. On GitHub Pages (project site) this should be '/<repo-name>/'.
+  // Update when using a custom domain.
+  base: '/ritessh.ai/',
   server: {
     port: 3000,
     open: true,
