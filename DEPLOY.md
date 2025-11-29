@@ -50,5 +50,13 @@ Tools & commands
 npx -y lighthouse https://godseritesh.github.io/ --output html --output-path ./reports/lighthouse.html --chrome-flags="--no-sandbox --headless"
 ```
 
+- Run Lighthouse against a local preview (build + preview in background):
+```powershell
+npm run build
+npm run preview -- --port 5173
+# then, in another shell:
+npx -y lighthouse http://127.0.0.1:5173 --output html --output-path ./reports/lighthouse-local.html --chrome-flags="--no-sandbox --headless"
+```
+
 CI
 - Consider adding `lhci` to CI for tracking performance trends over time.

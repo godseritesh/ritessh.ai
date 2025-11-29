@@ -30,9 +30,13 @@ const ThreeDemo: React.FC = () => {
       ) : (
         <div className="w-full max-w-xl">
           {/* Example model-viewer usage. Replace src with your optimized glTF */}
-          <div dangerouslySetInnerHTML={{ __html: `
-            <model-viewer src="/models/sample.glb" alt="3D demo" camera-controls autoplay ar ar-modes="webxr scene-viewer quick-look" exposure="1" style="width:100%;height:360px;background:transparent" poster="/3d-poster.png"></model-viewer>
-          ` }} />
+          <div
+            dangerouslySetInnerHTML={{
+              __html: `
+            <model-viewer src="/models/sample.glb" alt="3D demo" camera-controls autoplay ar ar-modes="webxr scene-viewer quick-look" exposure="1" style="width:100%;height:360px;background:transparent" poster="/models/3d-poster.svg"></model-viewer>
+          `,
+            }}
+          />
         </div>
       )}
     </div>
