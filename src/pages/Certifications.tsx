@@ -105,10 +105,13 @@ const Certifications: React.FC = () => {
                   <div key={it.id} className="flex items-center justify-between bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-center gap-4">
                         {it.id ? (
-                        <img loading="lazy" src={`https://drive.google.com/thumbnail?id=${it.id}`} alt={it.title} className="w-16 h-12 object-cover rounded-md bg-gray-100" />
-                      ) : (
-                        <div className="w-16 h-12 bg-gray-100 rounded-md" />
-                      )}
+                          // Use ResponsiveImage which will fall back to an <img> for external URLs
+                          <React.Suspense>
+                            <img loading="lazy" src={`https://drive.google.com/thumbnail?id=${it.id}`} alt={it.title} className="w-16 h-12 object-cover rounded-md bg-gray-100" />
+                          </React.Suspense>
+                        ) : (
+                          <div className="w-16 h-12 bg-gray-100 rounded-md" />
+                        )}
                       <div>
                         <h3 className="text-sm font-medium text-gray-900 dark:text-white">{it.title}</h3>
                         <p className="text-xs text-gray-500 dark:text-gray-400">Hosted on Google Drive</p>

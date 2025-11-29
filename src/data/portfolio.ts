@@ -20,7 +20,7 @@ export const experience = [
   {
     id: 1,
     company: 'PayU Payments',
-    position: 'Software Developer',
+    position: 'Graduate Trainee Engineer',
     duration: 'June 2025 - Present',
     description: 'Architecting and building high-performance payment processing systems handling millions of transactions daily. Specializing in settlement accuracy, real-time data pipelines, and LLM-powered customer support automation.',
     highlights: [
